@@ -7,7 +7,6 @@ import {
 	User,
 	onAuthStateChanged
 } from 'firebase/auth';
-
 import {
 	CollectionReference,
 	collection,

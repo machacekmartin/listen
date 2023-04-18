@@ -1,36 +1,73 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
+import {
+	AppBar,
+	Container,
+	Toolbar,
+	Button,
+	Box,
+	CssBaseline
+} from '@mui/material';
+import {
+	RouterProvider,
+	RootRoute,
+	Outlet,
+	Router,
+	Route
+} from '@tanstack/react-router';
 
-import viteLogo from '/vite.svg';
-import './App.css';
+import ButtonLink from './components/ButtonLink';
+import HomePage from './pages/Home';
+import LoginPage from './pages/Login';
 
-function App() {
-	const [count, setCount] = useState(0);
+const rootRoute = new RootRoute({
+	component: () => (
+		<>
+			<CssBaseline />
 
-	return (
-		<div className="App">
-			<div>
-				<a href="https://vitejs.dev" target="_blank">
-					<img src={viteLogo} className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://reactjs.org" target="_blank">
-					<img src={reactLogo} className="logo react" alt="React logo" />
-				</a>
-			</div>
-			<h1>Vite + React</h1>
-			<div className="card">
-				<button onClick={() => setCount(count => count + 1)}>
-					count is {count}
-				</button>
-				<p>
-					Edit <code>src/App.tsx</code> and save to test HMR
-				</p>
-			</div>
-			<p className="read-the-docs">
-				Click on the Vite and React logos to learn more
-			</p>
-		</div>
-	);
+			<AppBar position="sticky">
+				<Toolbar>
+					<ButtonLink to="/">Home</ButtonLink>
+					<ButtonLink to="/login">Login</ButtonLink>
+				</Toolbar>
+			</AppBar>
+
+			<Outlet />
+		</>
+	)
+});
+
+const homeRoute = new Route({
+	getParentRoute: () => rootRoute,
+	path: '/',
+	component: HomePage
+});
+
+const loginRoute = new Route({
+	getParentRoute: () => rootRoute,
+	path: '/login',
+	component: LoginPage
+});
+
+// const notFoundRoute = new Route({
+// 	getParentRoute: () => rootRoute,
+// 	path: '*',
+// 	component: NotFound
+// });
+
+const routeTree = rootRoute.addChildren([
+	homeRoute,
+	loginRoute
+	// notFoundRoute
+]);
+
+const router = new Router({ routeTree });
+
+declare module '@tanstack/react-router' {
+	// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+	interface Register {
+		router: typeof router;
+	}
 }
+
+const App = () => <RouterProvider router={router} />;
 
 export default App;
