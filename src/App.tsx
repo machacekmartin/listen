@@ -1,7 +1,8 @@
 import {
 	CssBaseline,
 	BottomNavigation,
-	BottomNavigationAction
+	BottomNavigationAction,
+	colors
 } from '@mui/material';
 import {
 	RouterProvider,
@@ -43,13 +44,16 @@ const rootRoute = new RootRoute({
 						setValue(newValue);
 					}}
 					sx={{
-						borderRadius: 3,
+						borderRadius: 5,
 						position: 'fixed',
 						left: 16,
 						bottom: 16,
 						width: 'calc(100% - 32px)',
-						backgroundColor: '#F0F0F0',
-						justifyContent: 'space-around'
+						backgroundColor: '#373669',
+						justifyContent: 'space-around',
+						alignItems: 'center',
+						padding: 1.5,
+						height: 'auto'
 					}}
 				>
 					{navigation.map((item, index) => (
@@ -60,6 +64,20 @@ const rootRoute = new RootRoute({
 							icon={
 								value === index ? <item.icon.active /> : <item.icon.regular />
 							}
+							color="white"
+							sx={{
+								'display': 'flex',
+								'width': 60,
+								'maxWidth': 60,
+								'minWidth': 60,
+								'height': 55,
+								'borderRadius': 3,
+								'color': 'white !important',
+								'backgroundColor': value === index ? '#51507D' : 'none',
+								':hover': {
+									backgroundColor: '#51507D'
+								}
+							}}
 						/>
 					))}
 				</BottomNavigation>
