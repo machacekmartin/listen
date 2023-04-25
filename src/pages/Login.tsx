@@ -27,7 +27,7 @@ const LoginPage = () => {
 					isSignUp
 						? await signUp(email.value, password.value)
 						: await signIn(email.value, password.value);
-					navigate({ to: '/' });
+					navigate({ to: '/rate' });
 				} catch (err) {
 					setSubmitError(
 						(err as { message?: string })?.message ?? 'Unknown error occurred'

@@ -1,8 +1,7 @@
 import {
 	CssBaseline,
 	BottomNavigation,
-	BottomNavigationAction,
-	colors
+	BottomNavigationAction
 } from '@mui/material';
 import {
 	RouterProvider,
@@ -10,10 +9,17 @@ import {
 	Outlet,
 	Router,
 	Route,
-	Link
+	Link,
+	useRoute,
+	useRouter,
+	useMatch,
+	useRouterContext
 } from '@tanstack/react-router';
 import { useState } from 'react';
 import {
+	ElectricMeter,
+	ElectricMeterOutlined,
+	ElectricMeterRounded,
 	EmojiEvents,
 	EmojiEventsOutlined,
 	MusicNote,
@@ -26,6 +32,7 @@ import LoginPage from './pages/Login';
 import RatePage from './pages/Rate';
 import LeaderboardPage from './pages/Leaderboard';
 import ProfilePage from './pages/Profile';
+import IntroPage from './pages/Intro';
 
 const rootRoute = new RootRoute({
 	component: () => {
@@ -37,58 +44,72 @@ const rootRoute = new RootRoute({
 
 				<Outlet />
 
-				<BottomNavigation
-					value={value}
-					showLabels={false}
-					onChange={(event, newValue) => {
-						setValue(newValue);
-					}}
-					sx={{
-						borderRadius: 5,
-						position: 'fixed',
-						left: 16,
-						bottom: 16,
-						width: 'calc(100% - 32px)',
-						backgroundColor: '#373669',
-						justifyContent: 'space-around',
-						alignItems: 'center',
-						padding: 1.5,
-						height: 'auto'
-					}}
-				>
-					{navigation.map((item, index) => (
-						<BottomNavigationAction
-							key={item.route.path}
-							LinkComponent={Link}
-							to={`/${item.route.path}`}
-							icon={
-								value === index ? <item.icon.active /> : <item.icon.regular />
-							}
-							color="white"
-							sx={{
-								'display': 'flex',
-								'width': 60,
-								'maxWidth': 60,
-								'minWidth': 60,
-								'height': 55,
-								'borderRadius': 3,
-								'color': 'white !important',
-								'backgroundColor': value === index ? '#51507D' : 'none',
-								':hover': {
-									backgroundColor: '#51507D'
+				{window.location.pathname !== '/intro' && (
+					<BottomNavigation
+						value={value}
+						showLabels={false}
+						onChange={(event, newValue) => {
+							setValue(newValue);
+						}}
+						sx={{
+							borderRadius: 5,
+							position: 'fixed',
+							left: 16,
+							bottom: 16,
+							width: 'calc(100% - 32px)',
+							backgroundColor: '#373669',
+							justifyContent: 'space-around',
+							alignItems: 'center',
+							padding: 1.5,
+							height: 'auto'
+						}}
+					>
+						{navigation.map((item, index) => (
+							<BottomNavigationAction
+								key={item.route.path}
+								LinkComponent={Link}
+								to={`/${item.route.path}`}
+								icon={
+									value === index ? <item.icon.active /> : <item.icon.regular />
 								}
-							}}
-						/>
-					))}
-				</BottomNavigation>
+								color="white"
+								sx={{
+									'display': 'flex',
+									'width': 60,
+									'maxWidth': 60,
+									'minWidth': 60,
+									'height': 55,
+									'borderRadius': 3,
+									'color': 'white !important',
+									'backgroundColor': value === index ? '#51507D' : 'none',
+									':hover': {
+										backgroundColor: '#51507D'
+									}
+								}}
+							/>
+						))}
+					</BottomNavigation>
+				)}
 			</>
 		);
 	}
 });
 
+const introRoute = new Route({
+	getParentRoute: () => rootRoute,
+	path: '/intro',
+	component: IntroPage
+});
+
+const loginRoute = new Route({
+	getParentRoute: () => rootRoute,
+	path: '/login',
+	component: LoginPage
+});
+
 const rateRoute = new Route({
 	getParentRoute: () => rootRoute,
-	path: '/',
+	path: '/rate',
 	component: RatePage
 });
 
@@ -104,13 +125,11 @@ const profileRoute = new Route({
 	component: ProfilePage
 });
 
-const loginRoute = new Route({
-	getParentRoute: () => rootRoute,
-	path: '/login',
-	component: LoginPage
-});
-
 const navigation = [
+	{
+		route: introRoute,
+		icon: { regular: ElectricMeterOutlined, active: ElectricMeter }
+	},
 	{
 		route: rateRoute,
 		icon: { regular: MusicNoteOutlined, active: MusicNote }
@@ -135,6 +154,7 @@ const routeTree = rootRoute.addChildren([
 	rateRoute,
 	leaderboardRoute,
 	profileRoute,
+	introRoute,
 	loginRoute
 	// notFoundRoute
 ]);
