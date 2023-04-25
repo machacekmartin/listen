@@ -9,10 +9,11 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@tanstack/react-router": "^0.0.1-beta.83",
         "@emotion/react": "^11.10.6",
         "@emotion/styled": "^11.10.6",
+        "@mui/icons-material": "^5.11.16",
         "@mui/material": "^5.12.1",
+        "@tanstack/react-router": "^0.0.1-beta.83",
         "eslint": "^8.38.0",
         "firebase": "^9.19.1",
         "prettier": "^2.8.7",

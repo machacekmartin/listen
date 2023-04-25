@@ -2,10 +2,10 @@ import { Box } from '@mui/material';
 
 import useLoggedInUser from '../hooks/useLoggedInUser';
 
-const HomePage = () => {
+const RatePage = () => {
 	const user = useLoggedInUser();
 
-	return <Box> {user?.email} </Box>;
+	return <Box sx={{ padding: 2 }}>{user?.email}</Box>;
 };
 
-export default HomePage;
+export default RatePage;

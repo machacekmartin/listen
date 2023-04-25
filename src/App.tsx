@@ -1,44 +1,89 @@
 import {
-	AppBar,
-	Container,
-	Toolbar,
-	Button,
-	Box,
-	CssBaseline
+	CssBaseline,
+	BottomNavigation,
+	BottomNavigationAction
 } from '@mui/material';
 import {
 	RouterProvider,
 	RootRoute,
 	Outlet,
 	Router,
-	Route
+	Route,
+	Link
 } from '@tanstack/react-router';
+import { useState } from 'react';
+import {
+	EmojiEvents,
+	EmojiEventsOutlined,
+	MusicNote,
+	MusicNoteOutlined,
+	Person,
+	PersonOutlined
+} from '@mui/icons-material';
 
-import ButtonLink from './components/ButtonLink';
-import HomePage from './pages/Home';
 import LoginPage from './pages/Login';
+import RatePage from './pages/Rate';
+import LeaderboardPage from './pages/Leaderboard';
+import ProfilePage from './pages/Profile';
 
 const rootRoute = new RootRoute({
-	component: () => (
-		<>
-			<CssBaseline />
+	component: () => {
+		const [value, setValue] = useState(0);
 
-			<AppBar position="sticky">
-				<Toolbar>
-					<ButtonLink to="/">Home</ButtonLink>
-					<ButtonLink to="/login">Login</ButtonLink>
-				</Toolbar>
-			</AppBar>
+		return (
+			<>
+				<CssBaseline />
 
-			<Outlet />
-		</>
-	)
+				<Outlet />
+
+				<BottomNavigation
+					value={value}
+					showLabels={false}
+					onChange={(event, newValue) => {
+						setValue(newValue);
+					}}
+					sx={{
+						borderRadius: 3,
+						position: 'fixed',
+						left: 16,
+						bottom: 16,
+						width: 'calc(100% - 32px)',
+						backgroundColor: '#F0F0F0',
+						justifyContent: 'space-around'
+					}}
+				>
+					{navigation.map((item, index) => (
+						<BottomNavigationAction
+							key={item.route.path}
+							LinkComponent={Link}
+							to={`/${item.route.path}`}
+							icon={
+								value === index ? <item.icon.active /> : <item.icon.regular />
+							}
+						/>
+					))}
+				</BottomNavigation>
+			</>
+		);
+	}
 });
 
-const homeRoute = new Route({
+const rateRoute = new Route({
 	getParentRoute: () => rootRoute,
 	path: '/',
-	component: HomePage
+	component: RatePage
+});
+
+const leaderboardRoute = new Route({
+	getParentRoute: () => rootRoute,
+	path: '/leaderboard',
+	component: LeaderboardPage
+});
+
+const profileRoute = new Route({
+	getParentRoute: () => rootRoute,
+	path: '/profile',
+	component: ProfilePage
 });
 
 const loginRoute = new Route({
@@ -47,6 +92,21 @@ const loginRoute = new Route({
 	component: LoginPage
 });
 
+const navigation = [
+	{
+		route: rateRoute,
+		icon: { regular: MusicNoteOutlined, active: MusicNote }
+	},
+	{
+		route: leaderboardRoute,
+		icon: { regular: EmojiEventsOutlined, active: EmojiEvents }
+	},
+	{
+		route: profileRoute,
+		icon: { regular: PersonOutlined, active: Person }
+	}
+];
+
 // const notFoundRoute = new Route({
 // 	getParentRoute: () => rootRoute,
 // 	path: '*',
@@ -54,7 +114,9 @@ const loginRoute = new Route({
 // });
 
 const routeTree = rootRoute.addChildren([
-	homeRoute,
+	rateRoute,
+	leaderboardRoute,
+	profileRoute,
 	loginRoute
 	// notFoundRoute
 ]);
