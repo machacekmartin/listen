@@ -1,6 +1,17 @@
-import { Box, Button, MobileStepper, Typography } from '@mui/material';
-import { ArrowForward, MusicNote, Person } from '@mui/icons-material';
-import { useState } from 'react';
+import {
+	Box,
+	Button,
+	Icon,
+	MobileStepper,
+	Slide,
+	Typography
+} from '@mui/material';
+import {
+	MusicNoteOutlined,
+	EmojiEventsOutlined,
+	PersonOutlined
+} from '@mui/icons-material';
+import React, { useState } from 'react';
 
 import Circle from '../components/Circle';
 
@@ -15,59 +26,100 @@ const IntroPage = () => {
 		setActiveStep(prevActiveStep => prevActiveStep - 1);
 	};
 
+	const steps = [
+		{
+			icon: MusicNoteOutlined,
+			text: 'Listen to randomly selected song'
+		},
+		{
+			icon: EmojiEventsOutlined,
+			text: 'Rate the song with multi-directional swipe'
+		},
+		{
+			icon: PersonOutlined,
+			text: 'See global scoreboard ratings'
+		}
+	];
+
 	return (
 		<Box
 			sx={{
-				paddingTop: 15,
 				paddingX: 2,
-				display: 'flex',
-				flexDirection: 'column',
-				alignItems: 'center'
+				display: 'grid',
+				gridTemplateColumns: '1fr',
+				gridTemplateRows: '1fr',
+				width: '100%',
+				overflow: 'hidden'
 			}}
 		>
-			<Circle sx={{ marginBottom: 10 }}>
-				<MusicNote sx={{ width: '100%', height: '100%' }} />
-			</Circle>
-
 			<MobileStepper
 				variant="dots"
-				steps={3}
-				position="static"
+				steps={steps.length}
+				position="top"
+				sx={{ paddingTop: 5, justifyContent: 'center', background: 'none' }}
 				activeStep={activeStep}
 				nextButton={undefined}
 				backButton={undefined}
 			/>
 
-			<Typography
-				variant="h4"
-				sx={{
-					fontWeight: 'bold',
-					textAlign: 'center',
-					marginY: 5
-				}}
-			>
-				Listen to randomly selected song
-			</Typography>
-
-			<Button
-				variant="contained"
-				sx={{
-					position: 'fixed',
-					bottom: 16,
-					width: 'calc(100% - 32px)',
-					boxShadow: 'none',
-					backgroundColor: '#373669',
-					fontWeight: 'bold',
-					textTransform: 'none',
-					borderRadius: 3,
-					padding: 2,
-					zIndex: 2
-				}}
-				fullWidth
-				onClick={handleNext}
-			>
-				<Typography sx={{ fontWeight: 'bold' }}>Next</Typography>
-			</Button>
+			{steps.map((step, index) => (
+				<Slide
+					timeout={350}
+					direction={index === activeStep ? 'left' : 'right'}
+					in={index === activeStep}
+					key={index}
+					easing={{
+						enter: 'cubic-bezier(.45,.2,.42,.93)',
+						exit: 'linear'
+					}}
+				>
+					<Box
+						sx={{
+							gridRowStart: 1,
+							gridColumnStart: 1,
+							display: 'flex',
+							flexDirection: 'column',
+							marginTop: 15
+						}}
+					>
+						<Circle sx={{ padding: 8 }}>
+							<Icon component={step.icon} sx={{ fontSize: 140 }} />
+						</Circle>
+						<Typography
+							key={index}
+							variant="h4"
+							sx={{
+								marginTop: 10,
+								fontWeight: 'bold',
+								textAlign: 'center',
+								gridRowStart: 1,
+								gridColumnStart: 1
+							}}
+						>
+							{step.text}
+						</Typography>
+						<Button
+							variant="contained"
+							sx={{
+								position: 'relative',
+								width: '100%',
+								boxShadow: 'none',
+								backgroundColor: '#373669',
+								fontWeight: 'bold',
+								textTransform: 'none',
+								borderRadius: 3,
+								padding: 2,
+								marginTop: 'auto',
+								marginBottom: 2
+							}}
+							fullWidth
+							onClick={handleNext}
+						>
+							<Typography sx={{ fontWeight: 'bold' }}>Next</Typography>
+						</Button>
+					</Box>
+				</Slide>
+			))}
 		</Box>
 	);
 };
