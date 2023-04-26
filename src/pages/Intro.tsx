@@ -56,7 +56,7 @@ const IntroPage = () => {
 				variant="dots"
 				steps={steps.length}
 				position="top"
-				sx={{ paddingTop: 5, justifyContent: 'center', background: 'none' }}
+				sx={{ paddingTop: 10, justifyContent: 'center', background: 'none' }}
 				activeStep={activeStep}
 				nextButton={undefined}
 				backButton={undefined}
@@ -79,7 +79,7 @@ const IntroPage = () => {
 							gridColumnStart: 1,
 							display: 'flex',
 							flexDirection: 'column',
-							marginTop: 15
+							marginTop: 20
 						}}
 					>
 						<Circle sx={{ padding: 8 }}>
@@ -110,7 +110,7 @@ const IntroPage = () => {
 								borderRadius: 3,
 								padding: 2,
 								marginTop: 'auto',
-								marginBottom: 2
+								marginBottom: 3
 							}}
 							fullWidth
 							onClick={handleNext}
