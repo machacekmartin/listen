@@ -11,19 +11,22 @@ import {
 	EmojiEventsOutlined,
 	PersonOutlined
 } from '@mui/icons-material';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from '@tanstack/react-router';
 
 import Circle from '../components/Circle';
 
 const IntroPage = () => {
+	const navigate = useNavigate();
 	const [activeStep, setActiveStep] = useState(0);
 
 	const handleNext = () => {
 		setActiveStep(prevActiveStep => prevActiveStep + 1);
 	};
 
-	const handleBack = () => {
-		setActiveStep(prevActiveStep => prevActiveStep - 1);
+	const comppleteIntro = () => {
+		localStorage.setItem('intro_done', 'true');
+		navigate({ to: '/rate' });
 	};
 
 	const steps = [
@@ -113,9 +116,11 @@ const IntroPage = () => {
 								marginBottom: 3
 							}}
 							fullWidth
-							onClick={handleNext}
+							onClick={index === steps.length - 1 ? comppleteIntro : handleNext}
 						>
-							<Typography sx={{ fontWeight: 'bold' }}>Next</Typography>
+							<Typography sx={{ fontWeight: 'bold' }}>
+								{index === steps.length - 1 ? "Let's rate!" : 'Next'}
+							</Typography>
 						</Button>
 					</Box>
 				</Slide>
