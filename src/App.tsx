@@ -20,9 +20,6 @@ const rootRoute = new RootRoute({
 	component: () => {
 		const router = useRouter();
 
-		const shouldShowNavigation = (): boolean =>
-			router.state.currentLocation.pathname !== introRoute.fullPath;
-
 		const redirect = (route: Route) => {
 			router.navigate({ to: route.fullPath });
 		};
@@ -31,28 +28,21 @@ const rootRoute = new RootRoute({
 			<>
 				<CssBaseline />
 
-				<AuthGuard
-					fail={<LoginPage />}
-					success={
-						<>
-							<Outlet />
-							{shouldShowNavigation() && <Navigation onSelect={redirect} />}
-						</>
-					}
-				/>
+				{localStorage.getItem('intro_done') ? (
+					<AuthGuard
+						fail={<LoginPage />}
+						success={
+							<>
+								<Outlet />
+								<Navigation onSelect={redirect} />
+							</>
+						}
+					/>
+				) : (
+					<IntroPage />
+				)}
 			</>
 		);
-	}
-});
-
-const introRoute = new Route({
-	getParentRoute: () => rootRoute,
-	path: '/intro',
-	component: IntroPage,
-	beforeLoad: ({ router }) => {
-		if (localStorage.getItem('intro_done') === 'true') {
-			router.navigate({ to: rateRoute.fullPath });
-		}
 	}
 });
 
@@ -79,12 +69,11 @@ const notFoundRoute = new Route({
 	path: '*',
 	component: undefined,
 	beforeLoad: ({ router }) => {
-		router.navigate({ to: introRoute.fullPath });
+		router.navigate({ to: rateRoute.fullPath });
 	}
 });
 
 const routeTree = rootRoute.addChildren([
-	introRoute,
 	rateRoute,
 	leaderboardRoute,
 	profileRoute,
