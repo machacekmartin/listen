@@ -1,10 +1,14 @@
-import { Button, Paper, Typography, TextField, Box } from '@mui/material';
+import { Button, Paper, Typography, TextField, Box, Icon } from '@mui/material';
 import { FormEvent, useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
+import { MusicNoteOutlined } from '@mui/icons-material';
 
 import useField from '../hooks/useField';
 import usePageTitle from '../hooks/usePageTitle';
 import { signIn, signUp } from '../firebase';
+import Circle from '../components/Circle';
+import FullButton from '../components/FullButton';
+import TextButton from '../components/TextButton';
 
 const LoginPage = () => {
 	usePageTitle('Login');
@@ -38,47 +42,76 @@ const LoginPage = () => {
 				display: 'flex',
 				flexDirection: 'column',
 				width: '100%',
-				p: 4,
-				gap: 2
+				px: 2
 			}}
 		>
-			<Typography variant="h4" component="h2" textAlign="center" mb={3}>
-				Sign in
-			</Typography>
-			<TextField label="Email" {...email.props} type="email" />
-			<TextField label="Password" {...password.props} type="password" />
 			<Box
 				sx={{
 					display: 'flex',
-					gap: 2,
-					alignItems: 'center',
-					alignSelf: 'flex-end',
-					mt: 2
+					flexDirection: 'column',
+					height: '100%',
+					marginTop: 20
 				}}
 			>
+				<Circle sx={{ padding: 8 }}>
+					<Icon component={MusicNoteOutlined} sx={{ fontSize: 140 }} />
+				</Circle>
+				<Typography
+					variant="h4"
+					sx={{
+						marginTop: 10,
+						marginBottom: 5,
+						fontWeight: 'bold',
+						textAlign: 'center'
+					}}
+				>
+					Do you have an account?
+				</Typography>
+				<TextField
+					label="Email"
+					{...email.props}
+					type="email"
+					sx={{ marginBottom: 2 }}
+				/>
+				<TextField label="Password" {...password.props} type="password" />
 				{submitError && (
 					<Typography
 						variant="caption"
-						textAlign="right"
-						sx={{ color: 'error.main' }}
+						textAlign="center"
+						sx={{ color: 'error.main', mt: 1 }}
 					>
 						{submitError}
 					</Typography>
 				)}
-				<Button
-					type="submit"
-					variant="outlined"
-					onClick={() => setSignUp(true)}
+				<Box
+					sx={{
+						display: 'flex',
+						justifyContent: 'space-between',
+						alignItems: 'center',
+						marginTop: 'auto',
+						width: '100%',
+						paddingY: 2
+					}}
 				>
-					SignUp
-				</Button>
-				<Button
-					type="submit"
-					variant="contained"
-					onClick={() => setSignUp(false)}
-				>
-					SignIn
-				</Button>
+					<FullButton type="submit" onClick={() => setSignUp(false)}>
+						Log in
+					</FullButton>
+					<Typography
+						variant="body1"
+						sx={{ px: 6 }}
+						fontWeight={800}
+						color="#AAA"
+					>
+						or
+					</Typography>
+					<TextButton
+						type="submit"
+						onClick={() => setSignUp(true)}
+						sx={{ mr: 4, textDecoration: 'underline' }}
+					>
+						Sign up
+					</TextButton>
+				</Box>
 			</Box>
 		</Paper>
 	);
