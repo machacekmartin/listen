@@ -60,9 +60,9 @@ const Navigation: FC<Props> = ({ onSelect }) => {
 				height: 'auto'
 			}}
 		>
-			{items.map(item => (
+			{items.map((item, index) => (
 				<BottomNavigationAction
-					key={item.route?.path}
+					key={index}
 					value={item.route}
 					icon={
 						router.state.currentLocation.pathname === item.route?.fullPath ? (
