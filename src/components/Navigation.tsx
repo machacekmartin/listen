@@ -9,34 +9,39 @@ import {
 	PersonOutlined
 } from '@mui/icons-material';
 import { BottomNavigation, BottomNavigationAction } from '@mui/material';
-import { useRouter } from '@tanstack/react-router';
+import { Route, useRouter } from '@tanstack/react-router';
 import { FC } from 'react';
 
-const navigation = [
-	{
-		path: '/intro',
-		icon: { regular: ElectricMeterOutlined, active: ElectricMeter }
-	},
-	{
-		path: '/rate',
-		icon: { regular: MusicNoteOutlined, active: MusicNote }
-	},
-	{
-		path: '/leaderboard',
-		icon: { regular: EmojiEventsOutlined, active: EmojiEvents }
-	},
-	{
-		path: '/profile',
-		icon: { regular: PersonOutlined, active: Person2 }
-	}
-];
-
 type Props = {
-	onSelect: (path: string) => void;
+	onSelect: (route: Route) => void;
 };
 
 const Navigation: FC<Props> = ({ onSelect }) => {
 	const router = useRouter();
+
+	const items = ['intro', 'rate', 'leaderboard', 'profile'].map(routePath => ({
+		route: (router.routeTree.children as Array<Route>).find(
+			({ path }) => path === routePath
+		),
+		icon: {
+			intro: {
+				regular: ElectricMeterOutlined,
+				active: ElectricMeter
+			},
+			rate: {
+				regular: MusicNoteOutlined,
+				active: MusicNote
+			},
+			leaderboard: {
+				regular: EmojiEventsOutlined,
+				active: EmojiEvents
+			},
+			profile: {
+				regular: PersonOutlined,
+				active: Person2
+			}
+		}[routePath]
+	}));
 
 	return (
 		<BottomNavigation
@@ -55,12 +60,12 @@ const Navigation: FC<Props> = ({ onSelect }) => {
 				height: 'auto'
 			}}
 		>
-			{navigation.map(item => (
+			{items.map(item => (
 				<BottomNavigationAction
-					key={item.path}
-					value={item.path}
+					key={item.route?.path}
+					value={item.route}
 					icon={
-						router.state.currentLocation.pathname === item.path ? (
+						router.state.currentLocation.pathname === item.route?.fullPath ? (
 							<item.icon.active />
 						) : (
 							<item.icon.regular />
@@ -75,7 +80,7 @@ const Navigation: FC<Props> = ({ onSelect }) => {
 						'borderRadius': 3,
 						'color': 'white !important',
 						'backgroundColor':
-							router.state.currentLocation.pathname === item.path
+							router.state.currentLocation.pathname === item.route?.fullPath
 								? '#51507D'
 								: 'none',
 						':hover': {
