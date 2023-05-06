@@ -1,18 +1,15 @@
 import { Button, Paper, Typography, TextField, Box, Icon } from '@mui/material';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { MusicNoteOutlined } from '@mui/icons-material';
 
 import useField from '../hooks/useField';
-import usePageTitle from '../hooks/usePageTitle';
 import { signIn, signUp } from '../firebase';
 import Circle from '../components/Circle';
 import FullButton from '../components/FullButton';
 import TextButton from '../components/TextButton';
 
 const LoginPage = () => {
-	usePageTitle('Login');
-
 	const navigate = useNavigate();
 
 	const [isSignUp, setSignUp] = useState(false);
