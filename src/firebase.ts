@@ -9,14 +9,15 @@ import {
 } from 'firebase/auth';
 import {
 	CollectionReference,
+	addDoc,
 	collection,
 	getFirestore
 } from 'firebase/firestore';
 
 export type SongRating = {
-	user_id: number;
-	song_id: string;
-	rating: [1, 2, 3, 4, 5];
+	user_id: string;
+	song_id: number;
+	rating: true | false;
 };
 
 initializeApp({
@@ -40,6 +41,14 @@ export const signOut = () => authSignOut(auth);
 
 export const onAuthChanged = (callback: (u: User | null) => void) =>
 	onAuthStateChanged(auth, callback);
+
+export const insertSongRating = (song_id: number, rating: boolean) => {
+	addDoc(songsRatingsCollection, {
+		user_id: auth.currentUser!.uid,
+		song_id,
+		rating
+	});
+};
 
 export const songsRatingsCollection = collection(
 	getFirestore(),
