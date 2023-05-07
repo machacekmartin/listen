@@ -1,5 +1,4 @@
 import { Box, CircularProgress, Zoom } from '@mui/material';
-import { useRef } from 'react';
 
 import useRandomSong from '../hooks/useRandomSong';
 import SongCard from '../components/SongCard';
@@ -7,7 +6,6 @@ import { insertSongRating } from '../firebase';
 
 const RatePage = () => {
 	const [song, newSong] = useRandomSong();
-	const audio = useRef<HTMLAudioElement>();
 
 	const rate = (decision: boolean) => {
 		if (song === null) return;
@@ -29,7 +27,8 @@ const RatePage = () => {
 								height: 'calc(100svh - 32px - 80px - 16px)'
 							}}
 						>
-							<audio controls autoPlay src={song.preview} ref={audio} />
+							{/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+							<audio controls autoPlay src={song.preview} />
 						</SongCard>
 					</Box>
 				</Zoom>
