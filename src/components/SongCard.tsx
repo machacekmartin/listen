@@ -1,5 +1,5 @@
 import { Cancel, ThumbUp } from '@mui/icons-material';
-import { Box, Typography } from '@mui/material';
+import { Box, SxProps, Typography } from '@mui/material';
 import { FC, PropsWithChildren, useRef } from 'react';
 import TinderCard from 'react-tinder-card';
 
@@ -8,11 +8,12 @@ import { Song } from '../hooks/useRandomSong';
 import SwipeIndicator from './SwipeIndicator';
 
 type Props = PropsWithChildren<{
-	onLeaveScreen: () => void;
+	onLeaveScreen: (decision: boolean) => void;
 	song: NonNullable<Song>;
+	sx?: SxProps;
 }>;
 
-const SongCard: FC<Props> = ({ onLeaveScreen, song }) => {
+const SongCard: FC<Props> = ({ onLeaveScreen, song, sx }) => {
 	const thumb = useRef<HTMLDivElement>(null);
 	const cancel = useRef<HTMLDivElement>(null);
 
@@ -34,13 +35,14 @@ const SongCard: FC<Props> = ({ onLeaveScreen, song }) => {
 			swipeRequirementType="position"
 			swipeThreshold={150}
 			preventSwipe={['up', 'down']}
-			onCardLeftScreen={onLeaveScreen}
+			onCardLeftScreen={direction =>
+				onLeaveScreen(direction === 'right' ? true : false)
+			}
 			onSwipeRequirementFulfilled={indicateSwipe}
 			onSwipeRequirementUnfulfilled={() => indicateSwipe(null)}
 		>
 			<Box
 				position="relative"
-				height="70vh"
 				borderRadius={7}
 				overflow="hidden"
 				border="solid 8px #fff"
@@ -51,7 +53,8 @@ const SongCard: FC<Props> = ({ onLeaveScreen, song }) => {
 					':active': {
 						transform: 'scale(.9)',
 						boxShadow: '0px 4px 10px rgba(0, 26, 255, 0.4)'
-					}
+					},
+					...sx
 				}}
 			>
 				<Box
@@ -81,25 +84,24 @@ const SongCard: FC<Props> = ({ onLeaveScreen, song }) => {
 							'linear-gradient(360deg, rgba(55, 54, 105) 0%, rgba(55, 54, 105, 0.641781) 42.69%, rgba(55, 54, 105, 0) 100%)'
 					}}
 				>
-					{/* <Typography>{song.id}</Typography> */}
+					<Typography>{song.id}</Typography>
 					<Typography fontWeight={800} fontSize={24} pb={1}>
 						{song.title}
 					</Typography>
 					<Typography>{song.artist.name}</Typography>
-					{/* <Typography>{JSON.stringify(song.preview)}</Typography> */}
-					{/* <Button onClick={() => newSong()}>New somg</Button> */}
+					{/* <Typography>{song.preview}</Typography> */}
 				</Box>
 				<SwipeIndicator
 					ref={thumb}
 					icon={<ThumbUp sx={{ fontSize: 70 }} />}
-					bgColor="rgba(255,0,0,0.5)"
+					bg="linear-gradient(45deg,hsla(241deg, 32%, 31%, .75) 0%,hsla(338deg, 47%, 37%, .75) 33%,hsla(4deg, 61%, 46%, .75) 67%,hsla(0deg, 100%, 50%, .75) 100%)"
 					iconTilt="-25deg"
 					iconAlignment="left"
 				/>
 				<SwipeIndicator
 					ref={cancel}
 					icon={<Cancel sx={{ fontSize: 70 }} />}
-					bgColor="rgba(0,0,0,0.8)"
+					bg="rgba(0,0,0,0.8)"
 					iconTilt="25deg"
 					iconAlignment="right"
 				/>
