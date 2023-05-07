@@ -1,16 +1,16 @@
 import { Box } from '@mui/material';
-import React, { FC, PropsWithChildren, forwardRef } from 'react';
+import { FC, PropsWithChildren, forwardRef } from 'react';
 
 type Props = PropsWithChildren<{
 	icon: JSX.Element;
-	bgColor: string;
+	bg: string;
 	iconTilt?: string;
 	iconAlignment: 'left' | 'right';
 	ref: any;
 }>;
 
 const SwipeIndicator: FC<Props> = forwardRef(
-	({ bgColor, iconTilt, icon, iconAlignment }, ref) => (
+	({ bg, iconTilt, icon, iconAlignment }, ref) => (
 		<Box
 			ref={ref}
 			position="absolute"
@@ -22,7 +22,7 @@ const SwipeIndicator: FC<Props> = forwardRef(
 			color="white"
 			sx={{
 				transitionDuration: '.25s',
-				backgroundColor: bgColor,
+				background: bg,
 				opacity: 0
 			}}
 		>
