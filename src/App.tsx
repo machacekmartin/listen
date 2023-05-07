@@ -1,4 +1,4 @@
-import { CssBaseline } from '@mui/material';
+import { Box, CssBaseline } from '@mui/material';
 import {
 	RouterProvider,
 	RootRoute,
@@ -25,17 +25,19 @@ const rootRoute = new RootRoute({
 				<CssBaseline />
 
 				{localStorage.getItem('intro_done') ? (
-					<AuthGuard
-						fail={<LoginPage />}
-						success={
-							<>
-								<Outlet />
-								<Navigation
-									onSelect={route => navigate({ to: route.fullPath })}
-								/>
-							</>
-						}
-					/>
+					<Box p={2} height="100%">
+						<AuthGuard
+							fail={<LoginPage />}
+							success={
+								<>
+									<Outlet />
+									<Navigation
+										onSelect={route => navigate({ to: route.fullPath })}
+									/>
+								</>
+							}
+						/>
+					</Box>
 				) : (
 					<IntroPage />
 				)}
