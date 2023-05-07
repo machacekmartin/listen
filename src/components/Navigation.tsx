@@ -19,30 +19,32 @@ type Props = {
 const Navigation: FC<Props> = ({ onSelect }) => {
 	const router = useRouter();
 
-	const items = ['intro', 'rate', 'leaderboard', 'profile'].map(routePath => ({
-		route: (router.routeTree.children as Array<Route>).find(
-			({ path }) => path === routePath
-		),
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		icon: {
-			intro: {
-				regular: ElectricMeterOutlined,
-				active: ElectricMeter
-			},
-			rate: {
-				regular: MusicNoteOutlined,
-				active: MusicNote
-			},
-			leaderboard: {
-				regular: EmojiEventsOutlined,
-				active: EmojiEvents
-			},
-			profile: {
-				regular: PersonOutlined,
-				active: Person2
-			}
-		}[routePath]!
-	}));
+	const items = [/*'intro',*/ 'rate', 'leaderboard', 'profile'].map(
+		routePath => ({
+			route: (router.routeTree.children as Array<Route>).find(
+				({ path }) => path === routePath
+			),
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			icon: {
+				intro: {
+					regular: ElectricMeterOutlined,
+					active: ElectricMeter
+				},
+				rate: {
+					regular: MusicNoteOutlined,
+					active: MusicNote
+				},
+				leaderboard: {
+					regular: EmojiEventsOutlined,
+					active: EmojiEvents
+				},
+				profile: {
+					regular: PersonOutlined,
+					active: Person2
+				}
+			}[routePath]!
+		})
+	);
 
 	return (
 		<BottomNavigation
