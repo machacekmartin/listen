@@ -22,15 +22,13 @@ const useRandomSong = (): [Song, () => void] => {
 			fetchJsonp(`https://api.deezer.com/track/${id}&output=jsonp`)
 				.then(response => response.json())
 				.then(data => {
-					// fake timeout for now
-					setTimeout(() => {
-						if (data.error) {
-							console.log('I need to reload');
-							fetchRandomSong();
-						} else {
-							setSong(data);
-						}
-					}, 500);
+					// query again if song with this id doesnt exist or the found song doesnt have any mp3 preview
+					if (data.error || data.preview === '') {
+						console.log('I need to reload');
+						fetchRandomSong();
+					} else {
+						setSong(data);
+					}
 				});
 		};
 
