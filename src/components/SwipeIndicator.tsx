@@ -1,15 +1,15 @@
 import { Box } from '@mui/material';
-import { FC, PropsWithChildren, forwardRef } from 'react';
+import { PropsWithChildren, forwardRef } from 'react';
 
 type Props = PropsWithChildren<{
 	icon: JSX.Element;
 	bg: string;
 	iconTilt?: string;
 	iconAlignment: 'left' | 'right';
-	ref: any;
+	ref: HTMLDivElement;
 }>;
 
-const SwipeIndicator: FC<Props> = forwardRef(
+const SwipeIndicator = forwardRef<HTMLDivElement, Props>(
 	({ bg, iconTilt, icon, iconAlignment }, ref) => (
 		<Box
 			ref={ref}
