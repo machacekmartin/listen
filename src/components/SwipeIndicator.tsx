@@ -23,7 +23,8 @@ const SwipeIndicator: FC<Props> = forwardRef(
 			sx={{
 				transitionDuration: '.25s',
 				background: bg,
-				opacity: 0
+				opacity: 0,
+				pointerEvents: 'none'
 			}}
 		>
 			<Box

@@ -13,9 +13,10 @@ type Props = PropsWithChildren<{
 	sx?: SxProps;
 }>;
 
-const SongCard: FC<Props> = ({ onLeaveScreen, song, sx }) => {
+const SongCard: FC<Props> = ({ onLeaveScreen, song, sx, children }) => {
 	const thumb = useRef<HTMLDivElement>(null);
 	const cancel = useRef<HTMLDivElement>(null);
+	const draggable = useRef<HTMLDivElement>(null);
 
 	const indicateSwipe = (direction: string | null) => {
 		if (cancel.current === null || thumb.current === null) {
@@ -30,6 +31,16 @@ const SongCard: FC<Props> = ({ onLeaveScreen, song, sx }) => {
 		}
 	};
 
+	const indicateDrag = () => {
+		draggable.current.style.transform = 'scale(.9)';
+		draggable.current.style.boxShadow = '0px 4px 10px rgba(0, 26, 255, 0.4)';
+	};
+
+	const cancelDrag = () => {
+		draggable.current.style.transform = 'scale(1)';
+		draggable.current.style.boxShadow = '0px 20px 50px rgba(0, 26, 255, 0.25)';
+	};
+
 	return (
 		<TinderCard
 			swipeRequirementType="position"
@@ -42,18 +53,17 @@ const SongCard: FC<Props> = ({ onLeaveScreen, song, sx }) => {
 			onSwipeRequirementUnfulfilled={() => indicateSwipe(null)}
 		>
 			<Box
+				onPointerDown={indicateDrag}
+				onPointerUp={cancelDrag}
 				position="relative"
+				ref={draggable}
 				borderRadius={7}
 				overflow="hidden"
 				border="solid 8px #fff"
 				boxShadow="0px 20px 50px rgba(0, 26, 255, 0.25)"
 				sx={{
-					'transitionDuration': '.25s',
-					'willChange': 'transform',
-					':active': {
-						transform: 'scale(.9)',
-						boxShadow: '0px 4px 10px rgba(0, 26, 255, 0.4)'
-					},
+					transitionDuration: '.25s',
+					willChange: 'transform',
 					...sx
 				}}
 			>
@@ -84,13 +94,30 @@ const SongCard: FC<Props> = ({ onLeaveScreen, song, sx }) => {
 							'linear-gradient(360deg, rgba(55, 54, 105) 0%, rgba(55, 54, 105, 0.641781) 42.69%, rgba(55, 54, 105, 0) 100%)'
 					}}
 				>
-					<Typography>{song.id}</Typography>
+					<Typography sx={{ opacity: '.5' }}>{song.id}</Typography>
 					<Typography fontWeight={800} fontSize={24} pb={1}>
 						{song.title}
 					</Typography>
 					<Typography>{song.artist.name}</Typography>
-					{/* <Typography>{song.preview}</Typography> */}
 				</Box>
+
+				<Box
+					sx={{
+						position: 'absolute',
+						top: 0,
+						left: 0,
+						width: '100%',
+						background:
+							'linear-gradient(180deg, hsla(4deg, 61%, 46%, .8) 0%,hsla(338deg, 47%, 37%, .0) 100%)',
+						p: 2,
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center'
+					}}
+				>
+					{children}
+				</Box>
+
 				<SwipeIndicator
 					ref={thumb}
 					icon={<ThumbUp sx={{ fontSize: 70 }} />}
