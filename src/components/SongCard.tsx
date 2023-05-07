@@ -32,11 +32,13 @@ const SongCard: FC<Props> = ({ onLeaveScreen, song, sx, children }) => {
 	};
 
 	const indicateDrag = () => {
+		if (draggable.current === null) return;
 		draggable.current.style.transform = 'scale(.95)';
 		draggable.current.style.boxShadow = '0px 4px 10px rgba(0, 26, 255, 0.4)';
 	};
 
 	const cancelDrag = () => {
+		if (draggable.current === null) return;
 		draggable.current.style.transform = 'scale(1)';
 		draggable.current.style.boxShadow = '0px 20px 50px rgba(0, 26, 255, 0.25)';
 	};
