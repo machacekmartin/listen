@@ -73,7 +73,7 @@ const SongCard: FC<Props> = ({ onLeaveScreen, song, sx, children }) => {
 						objectFit: 'cover',
 						pointerEvents: 'none'
 					}}
-					alt="The house from the offer."
+					alt={song.artist.name}
 					src={song.album.cover_xl}
 				/>
 				<Box
@@ -97,23 +97,22 @@ const SongCard: FC<Props> = ({ onLeaveScreen, song, sx, children }) => {
 						{song.title}
 					</Typography>
 					<Typography>{song.artist.name}</Typography>
-				</Box>
-
-				<Box
-					sx={{
-						position: 'absolute',
-						top: 0,
-						left: 0,
-						width: '100%',
-						background:
-							'linear-gradient(180deg, hsla(4deg, 61%, 46%, .8) 0%,hsla(338deg, 47%, 37%, .0) 100%)',
-						p: 2,
-						display: 'flex',
-						alignItems: 'center',
-						justifyContent: 'center'
-					}}
-				>
-					{children}
+					<Box
+						sx={{
+							position: 'absolute',
+							top: 0,
+							left: 0,
+							width: '100%',
+							background:
+								'linear-gradient(180deg, hsla(4deg, 61%, 46%, .8) 0%,hsla(338deg, 47%, 37%, .0) 100%)',
+							p: 2,
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center'
+						}}
+					>
+						{children}
+					</Box>
 				</Box>
 
 				<SwipeIndicator
