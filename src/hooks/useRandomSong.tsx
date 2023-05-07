@@ -4,7 +4,13 @@ import fetchJsonp from 'fetch-jsonp';
 export type Song = {
 	id: number;
 	title: string;
-	link: string;
+	preview: string;
+	album: {
+		cover_xl: string;
+	};
+	artist: {
+		name: string;
+	};
 } | null;
 
 const useRandomSong = (): [Song, () => void] => {
