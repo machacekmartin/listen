@@ -1,5 +1,5 @@
-import { Button, Paper, Typography, TextField, Box, Icon } from '@mui/material';
-import { FormEvent, useEffect, useState } from 'react';
+import { Typography, TextField, Box, Icon } from '@mui/material';
+import { FormEvent, useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { MusicNoteOutlined } from '@mui/icons-material';
 
@@ -20,7 +20,7 @@ const LoginPage = () => {
 	const [submitError, setSubmitError] = useState<string>();
 
 	return (
-		<Paper
+		<Box
 			component="form"
 			onSubmit={async (e: FormEvent) => {
 				e.preventDefault();
@@ -39,6 +39,10 @@ const LoginPage = () => {
 				display: 'flex',
 				flexDirection: 'column',
 				width: '100%',
+				height: '100%',
+				overflowY: 'auto',
+				maxHeight: '100svh',
+				pt: 5,
 				px: 2
 			}}
 		>
@@ -46,17 +50,16 @@ const LoginPage = () => {
 				sx={{
 					display: 'flex',
 					flexDirection: 'column',
-					height: '100%',
-					marginTop: 20
+					height: '100%'
 				}}
 			>
 				<Circle sx={{ padding: 8 }}>
-					<Icon component={MusicNoteOutlined} sx={{ fontSize: 140 }} />
+					<Icon component={MusicNoteOutlined} sx={{ fontSize: 110 }} />
 				</Circle>
 				<Typography
 					variant="h4"
 					sx={{
-						marginTop: 10,
+						marginTop: 8,
 						marginBottom: 5,
 						fontWeight: 'bold',
 						textAlign: 'center'
@@ -110,7 +113,7 @@ const LoginPage = () => {
 					</TextButton>
 				</Box>
 			</Box>
-		</Paper>
+		</Box>
 	);
 };
 
