@@ -79,6 +79,7 @@ const routeTree = rootRoute.addChildren([
 ]);
 
 const router = new Router({ routeTree });
+router.navigate({ to: rateRoute.fullPath });
 
 declare module '@tanstack/react-router' {
 	// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
