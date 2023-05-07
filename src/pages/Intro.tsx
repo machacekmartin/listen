@@ -47,11 +47,8 @@ const IntroPage = () => {
 	return (
 		<Box
 			sx={{
-				paddingX: 2,
+                paddingX: 2,
 				display: 'grid',
-				gridTemplateColumns: '1fr',
-				gridTemplateRows: '1fr',
-				width: '100%',
 				overflow: 'hidden',
 				height: '100%'
 			}}

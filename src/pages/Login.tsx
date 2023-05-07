@@ -36,14 +36,10 @@ const LoginPage = () => {
 				}
 			}}
 			sx={{
-				display: 'flex',
-				flexDirection: 'column',
-				width: '100%',
 				height: '100%',
 				overflowY: 'auto',
 				maxHeight: '100svh',
-				pt: 5,
-				px: 2
+				pt: 5
 			}}
 		>
 			<Box
