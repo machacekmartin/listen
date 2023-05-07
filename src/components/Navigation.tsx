@@ -23,6 +23,7 @@ const Navigation: FC<Props> = ({ onSelect }) => {
 		route: (router.routeTree.children as Array<Route>).find(
 			({ path }) => path === routePath
 		),
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		icon: {
 			intro: {
 				regular: ElectricMeterOutlined,
@@ -40,7 +41,7 @@ const Navigation: FC<Props> = ({ onSelect }) => {
 				regular: PersonOutlined,
 				active: Person2
 			}
-		}[routePath]
+		}[routePath]!
 	}));
 
 	return (
@@ -48,7 +49,7 @@ const Navigation: FC<Props> = ({ onSelect }) => {
 			showLabels={false}
 			onChange={(_, newValue) => onSelect(newValue)}
 			sx={{
-				borderRadius: 5,
+				borderRadius: 7,
 				position: 'fixed',
 				left: 16,
 				bottom: 16,
