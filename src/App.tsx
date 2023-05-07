@@ -5,7 +5,7 @@ import {
 	Outlet,
 	Router,
 	Route,
-	useRouter
+	useNavigate
 } from '@tanstack/react-router';
 
 import LoginPage from './pages/Login';
@@ -18,11 +18,7 @@ import AuthGuard from './components/AuthGuard';
 
 const rootRoute = new RootRoute({
 	component: () => {
-		const router = useRouter();
-
-		const redirect = (route: Route) => {
-			router.navigate({ to: route.fullPath });
-		};
+		const navigate = useNavigate();
 
 		return (
 			<>
@@ -34,7 +30,9 @@ const rootRoute = new RootRoute({
 						success={
 							<>
 								<Outlet />
-								<Navigation onSelect={redirect} />
+								<Navigation
+									onSelect={route => navigate({ to: route.fullPath })}
+								/>
 							</>
 						}
 					/>
