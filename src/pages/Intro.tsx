@@ -52,14 +52,15 @@ const IntroPage = () => {
 				gridTemplateColumns: '1fr',
 				gridTemplateRows: '1fr',
 				width: '100%',
-				overflow: 'hidden'
+				overflow: 'hidden',
+				height: '100%'
 			}}
 		>
 			<MobileStepper
 				variant="dots"
 				steps={steps.length}
 				position="top"
-				sx={{ paddingTop: 10, justifyContent: 'center', background: 'none' }}
+				sx={{ paddingTop: 2, justifyContent: 'center', background: 'none' }}
 				activeStep={activeStep}
 				nextButton={undefined}
 				backButton={undefined}
@@ -82,11 +83,11 @@ const IntroPage = () => {
 							gridColumnStart: 1,
 							display: 'flex',
 							flexDirection: 'column',
-							marginTop: 20
+							marginTop: 5
 						}}
 					>
 						<Circle sx={{ padding: 8 }}>
-							<Icon component={step.icon} sx={{ fontSize: 140 }} />
+							<Icon component={step.icon} sx={{ fontSize: 110 }} />
 						</Circle>
 						<Typography
 							key={index}
