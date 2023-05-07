@@ -47,7 +47,7 @@ const IntroPage = () => {
 	return (
 		<Box
 			sx={{
-                paddingX: 2,
+				paddingX: 2,
 				display: 'grid',
 				overflow: 'hidden',
 				height: '100%'

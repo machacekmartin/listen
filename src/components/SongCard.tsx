@@ -32,7 +32,7 @@ const SongCard: FC<Props> = ({ onLeaveScreen, song, sx, children }) => {
 	};
 
 	const indicateDrag = () => {
-		draggable.current.style.transform = 'scale(.9)';
+		draggable.current.style.transform = 'scale(.95)';
 		draggable.current.style.boxShadow = '0px 4px 10px rgba(0, 26, 255, 0.4)';
 	};
 
@@ -46,9 +46,7 @@ const SongCard: FC<Props> = ({ onLeaveScreen, song, sx, children }) => {
 			swipeRequirementType="position"
 			swipeThreshold={150}
 			preventSwipe={['up', 'down']}
-			onCardLeftScreen={direction =>
-				onLeaveScreen(direction === 'right' ? true : false)
-			}
+			onSwipe={direction => onLeaveScreen(direction === 'right' ? true : false)}
 			onSwipeRequirementFulfilled={indicateSwipe}
 			onSwipeRequirementUnfulfilled={() => indicateSwipe(null)}
 		>
