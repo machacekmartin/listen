@@ -12,7 +12,7 @@ const Circle: FC<Props> = ({ children, sx }) => (
 			justifyContent: 'center',
 			alignItems: 'center',
 			marginX: 'auto',
-			width: 300,
+			width: 225,
 			borderRadius: '50%',
 			aspectRatio: '1/1',
 			backgroundColor: 'white',
