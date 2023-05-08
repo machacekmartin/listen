@@ -1,35 +1,47 @@
 import { useEffect, useState } from 'react';
 import fetchJsonp from 'fetch-jsonp';
 
-export type Song = {
-	id: number;
-	title: string;
-	preview: string;
-	album: {
-		cover_xl: string;
-	};
-	artist: {
-		name: string;
-	};
-} | null;
+import { Song, hasAlreadyRated } from '../firebase';
 
-const useRandomSong = (): [Song, () => void] => {
-	const [song, setSong] = useState<Song>(null);
+const useRandomSong = (): [Song | null, () => void] => {
+	const [song, setSong] = useState<Song | null>(null);
 
 	useEffect(() => {
-		const fetchRandomSong = () => {
+		const generateValidId = async (): Promise<number> => {
 			const id = Math.floor(Math.random() * 1000000);
-			fetchJsonp(`https://api.deezer.com/track/${id}&output=jsonp`)
-				.then(response => response.json())
-				.then(data => {
-					// query again if song with this id doesnt exist or the found song doesnt have any mp3 preview
-					if (data.error || data.preview === '') {
-						console.log('I need to reload');
-						fetchRandomSong();
-					} else {
-						setSong(data);
-					}
-				});
+
+			if (await hasAlreadyRated(id)) {
+				console.log('--- Provided ID already rated, trying again...');
+				return generateValidId();
+			} else {
+				console.log('--- Provided ID is correct');
+				return id;
+			}
+		};
+
+		const generateSongData = async (id: number) => {
+			const response = await fetchJsonp(
+				`https://api.deezer.com/track/${id}&output=jsonp`
+			);
+			return await response.json();
+		};
+
+		const fetchRandomSong = async () => {
+			if (song !== null) return;
+
+			const id = await generateValidId();
+			console.log(`--- Found valid id: ${id}`);
+			const data = await generateSongData(id);
+			console.log(`--- Got API data`);
+
+			if (data.error || data.preview === '') {
+				console.log('--- Data is invalid, trying again...');
+				fetchRandomSong();
+				return;
+			}
+
+			console.log('--------------------------');
+			setSong(data);
 		};
 
 		if (song === null) {
