@@ -25,19 +25,17 @@ const rootRoute = new RootRoute({
 				<CssBaseline />
 
 				{localStorage.getItem('intro_done') ? (
-					<Box p={2} height="100%">
-						<AuthGuard
-							fail={<LoginPage />}
-							success={
-								<>
-									<Outlet />
-									<Navigation
-										onSelect={route => navigate({ to: route.fullPath })}
-									/>
-								</>
-							}
-						/>
-					</Box>
+					<AuthGuard
+						fail={<LoginPage />}
+						success={
+							<Box p={2} height="100%">
+								<Outlet />
+								<Navigation
+									onSelect={route => navigate({ to: route.fullPath })}
+								/>
+							</Box>
+						}
+					/>
 				) : (
 					<IntroPage />
 				)}

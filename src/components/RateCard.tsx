@@ -13,7 +13,7 @@ type Props = PropsWithChildren<{
 	sx?: SxProps;
 }>;
 
-const SongCard: FC<Props> = ({ onLeaveScreen, song, sx, children }) => {
+const RateCard: FC<Props> = ({ onLeaveScreen, song, sx, children }) => {
 	const thumb = useRef<HTMLDivElement>(null);
 	const cancel = useRef<HTMLDivElement>(null);
 	const draggable = useRef<HTMLDivElement>(null);
@@ -136,4 +136,4 @@ const SongCard: FC<Props> = ({ onLeaveScreen, song, sx, children }) => {
 	);
 };
 
-export default SongCard;
+export default RateCard;

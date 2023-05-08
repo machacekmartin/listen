@@ -1,7 +1,7 @@
 import { Box, CircularProgress, Zoom } from '@mui/material';
 
 import useRandomSong from '../hooks/useRandomSong';
-import SongCard from '../components/SongCard';
+import RateCard from '../components/RateCard';
 import { rateSong } from '../firebase';
 
 const RatePage = () => {
@@ -18,7 +18,7 @@ const RatePage = () => {
 			{(song !== null && (
 				<Zoom in={song !== null} timeout={400}>
 					<Box>
-						<SongCard
+						<RateCard
 							onLeaveScreen={rate}
 							song={song}
 							sx={{
@@ -27,7 +27,7 @@ const RatePage = () => {
 						>
 							{/* eslint-disable-next-line jsx-a11y/media-has-caption */}
 							<audio controls autoPlay src={song.preview} />
-						</SongCard>
+						</RateCard>
 					</Box>
 				</Zoom>
 			)) || (

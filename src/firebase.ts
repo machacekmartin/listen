@@ -11,6 +11,7 @@ import {
 	CollectionReference,
 	addDoc,
 	collection,
+	getDoc,
 	getDocs,
 	getFirestore,
 	query,
@@ -68,6 +69,20 @@ export const onAuthChanged = (callback: (u: User | null) => void) =>
 	onAuthStateChanged(auth, callback);
 
 export const hasAlreadyRated = async (song_id: number) => {
+	if (auth.currentUser === null) return false;
+
+	const match = await getDocs(
+		query(
+			songsRatingsCollection,
+			where('song_id', '==', song_id),
+			where('user_id', '==', auth.currentUser.uid)
+		)
+	);
+
+	return !match.empty;
+};
+
+export const allSongs = async (song_id: number) => {
 	if (auth.currentUser === null) return false;
 
 	const match = await getDocs(

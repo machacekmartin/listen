@@ -39,7 +39,7 @@ const LoginPage = () => {
 				height: '100%',
 				overflowY: 'auto',
 				maxHeight: '100svh',
-				pt: 5
+				p: 2
 			}}
 		>
 			<Box
