@@ -2,14 +2,14 @@ import { Box, CircularProgress, Zoom } from '@mui/material';
 
 import useRandomSong from '../hooks/useRandomSong';
 import SongCard from '../components/SongCard';
-import { insertSongRating } from '../firebase';
+import { rateSong } from '../firebase';
 
 const RatePage = () => {
 	const [song, newSong] = useRandomSong();
 
 	const rate = (decision: boolean) => {
 		if (song === null) return;
-		insertSongRating(song, decision);
+		rateSong(song, decision);
 		newSong();
 	};
 

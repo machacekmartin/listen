@@ -81,7 +81,7 @@ export const hasAlreadyRated = async (song_id: number) => {
 	return !match.empty;
 };
 
-export const insertSongRating = async (song: Song, rating: boolean) => {
+export const rateSong = async (song: Song, rating: boolean) => {
 	if (auth.currentUser === null) return;
 
 	const matchingDocs = await getDocs(
