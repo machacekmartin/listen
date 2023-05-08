@@ -9,9 +9,7 @@ const RatePage = () => {
 
 	const rate = (decision: boolean) => {
 		if (song === null) return;
-
-		insertSongRating(song.id, decision);
-
+		insertSongRating(song, decision);
 		newSong();
 	};
 
