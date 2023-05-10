@@ -1,103 +1,129 @@
-import { Box, IconButton, SxProps, Typography } from '@mui/material';
+import {
+	Box,
+	CircularProgress,
+	IconButton,
+	SxProps,
+	Typography
+} from '@mui/material';
 import { FC, PropsWithChildren } from 'react';
 import { PlayArrow, Stop } from '@mui/icons-material';
 
-import { Song } from '../firebase';
+import useSong from '../hooks/useSong';
+import { SongUrlReference } from '../types';
 
 type Props = PropsWithChildren<{
-	song: Song;
-	sx?: SxProps;
-	isPlaying: boolean;
-	rating: string;
-	onPlay: (song: Song) => void;
+	songId: string;
+	playing: boolean;
+	ratings: {
+		positive: number;
+		negative: number;
+	};
+	onPlay: (reference: SongUrlReference) => void;
 	onStop: () => void;
+	sx?: SxProps;
 }>;
 
 const SongPanel: FC<Props> = ({
-	song,
 	sx,
+	songId,
 	onPlay,
-	isPlaying,
 	onStop,
-	rating
-}) => (
-	<Box
-		position="relative"
-		width="100%"
-		display="flex"
-		alignItems="center"
-		p={1.2}
-		borderRadius={6}
-		sx={{
-			backgroundColor: 'white',
-			boxShadow: '0px 5px 25px rgba(0, 26, 255, 0.25)',
-			...sx
-		}}
-	>
+	ratings,
+	playing
+}) => {
+	const song = useSong(songId);
+
+	return (
 		<Box
-			component="img"
-			width="55px"
-			height="55px"
-			mr={2}
-			borderRadius={4}
-			sx={{
-				objectFit: 'cover',
-				pointerEvents: 'none'
-			}}
-			alt={song.artist.name}
-			src={song.album.cover_xl}
-		/>
-		<Box
+			position="relative"
+			width="100%"
 			display="flex"
-			flexDirection="column"
-			justifyContent="center"
-			overflow="hidden"
-			mr="auto"
-		>
-			<Typography
-				fontWeight="bold"
-				sx={{
-					whiteSpace: 'nowrap',
-					overflow: 'hidden',
-					textOverflow: 'ellipsis'
-				}}
-			>
-				{song.title}
-				{song.title}
-				{song.title}
-			</Typography>
-			<Typography fontSize={13} color="gray">
-				{song.artist.name}
-			</Typography>
-		</Box>
-
-		{isPlaying ? (
-			<IconButton onClick={onStop}>
-				<Stop sx={{ fontSize: 35, color: 'hsla(0deg, 100%, 50%, .75)' }} />
-			</IconButton>
-		) : (
-			<IconButton onClick={() => onPlay(song)}>
-				<PlayArrow sx={{ fontSize: 35, color: '#373669' }} />
-			</IconButton>
-		)}
-
-		<Box
-			position="absolute"
-			top={-8}
-			right={12}
-			py={0.3}
-			px={1.5}
-			borderRadius="25%"
+			alignItems="center"
+			p={1.2}
+			borderRadius={6}
 			sx={{
 				backgroundColor: 'white',
-				boxShadow: '0px 2px 15px rgba(0, 26, 255, 0.1)'
+				boxShadow: '0px 5px 25px rgba(0, 26, 255, 0.25)',
+				...sx
 			}}
 		>
-			<Typography fontSize={12} fontWeight="900">
-				{rating}
-			</Typography>
+			{song === null ? (
+				<Box sx={{ paddingY: 1.5, pl: 2 }}>
+					<CircularProgress size={25} />
+				</Box>
+			) : (
+				<>
+					<Box
+						component="img"
+						width="55px"
+						height="55px"
+						mr={2}
+						borderRadius={4}
+						sx={{
+							objectFit: 'cover',
+							pointerEvents: 'none'
+						}}
+						alt={song.artist.name}
+						src={song.album.cover_xl}
+					/>
+					<Box
+						display="flex"
+						flexDirection="column"
+						justifyContent="center"
+						overflow="hidden"
+						mr="auto"
+					>
+						<Typography
+							fontWeight="bold"
+							sx={{
+								whiteSpace: 'nowrap',
+								overflow: 'hidden',
+								textOverflow: 'ellipsis'
+							}}
+						>
+							{song.title}
+							{song.title}
+							{song.title}
+						</Typography>
+						<Typography fontSize={13} color="gray">
+							{song.artist.name}
+						</Typography>
+					</Box>
+
+					{playing ? (
+						<IconButton onClick={() => onStop()}>
+							<Stop
+								sx={{ fontSize: 35, color: 'hsla(0deg, 100%, 50%, .75)' }}
+							/>
+						</IconButton>
+					) : (
+						<IconButton
+							onClick={() => onPlay({ id: song.id, url: song.preview })}
+						>
+							<PlayArrow sx={{ fontSize: 35, color: '#373669' }} />
+						</IconButton>
+					)}
+
+					<Box
+						position="absolute"
+						top={-8}
+						right={12}
+						py={0.3}
+						px={1.5}
+						borderRadius="25%"
+						sx={{
+							backgroundColor: 'white',
+							boxShadow: '0px 2px 15px rgba(0, 26, 255, 0.1)'
+						}}
+					>
+						<Typography fontSize={12} fontWeight="900">
+							{ratings.positive} / {ratings.negative}
+						</Typography>
+					</Box>
+				</>
+			)}
 		</Box>
-	</Box>
-);
+	);
+};
 
 export default SongPanel;

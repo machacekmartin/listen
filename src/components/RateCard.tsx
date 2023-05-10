@@ -3,7 +3,7 @@ import { Box, SxProps, Typography } from '@mui/material';
 import { FC, PropsWithChildren, useRef } from 'react';
 import TinderCard from 'react-tinder-card';
 
-import { Song } from '../firebase';
+import { Song } from '../types';
 
 import SwipeIndicator from './SwipeIndicator';
 

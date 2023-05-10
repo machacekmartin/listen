@@ -2,7 +2,7 @@ import { Box, CircularProgress, Zoom } from '@mui/material';
 
 import useRandomSong from '../hooks/useRandomSong';
 import RateCard from '../components/RateCard';
-import { rateSong } from '../firebase';
+import { rateSong } from '../actions/rateSong';
 
 const RatePage = () => {
 	const [song, newSong] = useRandomSong();

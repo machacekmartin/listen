@@ -1,22 +1,25 @@
 import { Box, Typography } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 
+import useSongsRatings from '../hooks/useSongsRatings';
 import SongPanel from '../components/SongPanel';
-import { Song } from '../firebase';
-import useSongsWithRatings from '../hooks/useSongsWithRatings';
+import useGroupBy from '../hooks/useGroupBy';
+import { Rating, SongUrlReference } from '../types';
 
 const LeaderboardPage = () => {
-	const [currentlyPlaing, setCurrentlyPlaying] = useState<Song | null>(null);
+	const [playingSong, setPlayingSong] = useState<SongUrlReference>();
 	const audio = useRef<HTMLAudioElement>(null);
-	const songs = useSongsWithRatings();
+	const songsRatings = useSongsRatings();
+	const groupedRatings = useGroupBy<Rating>(songsRatings, 'song_id');
+	const sortedGroups = [...Object.entries(groupedRatings)].sort(
+		(a, b) =>
+			b[1].filter(item => item.rating === true).length -
+			a[1].filter(item => item.rating === true).length
+	);
 
 	useEffect(() => {
-		if (currentlyPlaing) audio.current?.play();
-	}, [currentlyPlaing]);
-
-	const sortedSongs = [...songs].sort(
-		(songA, songB) => songB.ratings.true - songA.ratings.true
-	);
+		if (playingSong) audio.current?.play();
+	}, [playingSong]);
 
 	return (
 		<>
@@ -24,24 +27,27 @@ const LeaderboardPage = () => {
 				Leaderboard
 			</Typography>
 
-			{currentlyPlaing && (
+			{playingSong && (
 				<Box
 					component="audio"
 					display="none"
 					ref={audio}
-					src={currentlyPlaing.preview}
+					src={playingSong.url}
 				/>
 			)}
 
-			{sortedSongs.map((song, index) => (
+			{sortedGroups.map((group, index) => (
 				<SongPanel
-					song={song}
 					key={index}
-					sx={{ mb: index === songs.length - 1 ? 15 : 2 }}
-					rating={` ${song.ratings.true} | ${song.ratings.false}`}
-					isPlaying={song === currentlyPlaing}
-					onStop={() => setCurrentlyPlaying(null)}
-					onPlay={song => setCurrentlyPlaying(song)}
+					sx={{ mb: index === sortedGroups.length - 1 ? 15 : 2 }}
+					songId={group[0]}
+					ratings={{
+						positive: group[1].filter(item => item.rating === true).length,
+						negative: group[1].filter(item => item.rating === false).length
+					}}
+					playing={playingSong?.id === group[0] ?? true}
+					onStop={() => setPlayingSong(undefined)}
+					onPlay={songReference => setPlayingSong(songReference)}
 				/>
 			))}
 		</>

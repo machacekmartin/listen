@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import fetchJsonp from 'fetch-jsonp';
 
-import { Song, hasAlreadyRated } from '../firebase';
+import { Song } from '../types';
+import { hasAlreadyRated } from '../actions/hasAlreadyRated';
 
 const useRandomSong = (): [Song | null, () => void] => {
 	const [song, setSong] = useState<Song | null>(null);
@@ -10,7 +11,7 @@ const useRandomSong = (): [Song | null, () => void] => {
 		const generateValidId = async (): Promise<number> => {
 			const id = Math.floor(Math.random() * 1000000);
 
-			if (await hasAlreadyRated(id)) {
+			if (await hasAlreadyRated(id.toString())) {
 				console.log('--- Provided ID already rated, trying again...');
 				return generateValidId();
 			} else {

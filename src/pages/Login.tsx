@@ -4,10 +4,10 @@ import { useNavigate } from '@tanstack/react-router';
 import { MusicNoteOutlined } from '@mui/icons-material';
 
 import useField from '../hooks/useField';
-import { signIn, signUp } from '../firebase';
 import Circle from '../components/Circle';
 import FullButton from '../components/FullButton';
 import TextButton from '../components/TextButton';
+import { signIn, signUp } from '../firebase';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
