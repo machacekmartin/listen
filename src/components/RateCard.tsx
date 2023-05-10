@@ -13,6 +13,9 @@ type Props = PropsWithChildren<{
 	sx?: SxProps;
 }>;
 
+// This component uses style attribute switching by pure js
+// It's not ideal, I wanted to do it through a useState
+// BUT the draggable component just lost finger focus every time the state updated, so.. yeah..
 const RateCard: FC<Props> = ({ onLeaveScreen, song, sx, children }) => {
 	const thumb = useRef<HTMLDivElement>(null);
 	const cancel = useRef<HTMLDivElement>(null);
