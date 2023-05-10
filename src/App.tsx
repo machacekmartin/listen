@@ -28,7 +28,7 @@ const rootRoute = new RootRoute({
 					<AuthGuard
 						fail={<LoginPage />}
 						success={
-							<Box p={2} height="100%">
+							<Box p={2} height="100%" sx={{ overflowY: 'auto' }}>
 								<Outlet />
 								<Navigation
 									onSelect={route => navigate({ to: route.fullPath })}
