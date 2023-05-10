@@ -36,7 +36,7 @@ const IntroPage = () => {
 		},
 		{
 			icon: EmojiEventsOutlined,
-			text: 'Rate the song with multi-directional swipe'
+			text: 'Rate the song with directional swipe'
 		},
 		{
 			icon: PersonOutlined,
