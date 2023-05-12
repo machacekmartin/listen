@@ -8,7 +8,7 @@ import { Song } from '../types';
 import SwipeIndicator from './SwipeIndicator';
 
 type Props = PropsWithChildren<{
-	onLeaveScreen: (decision: boolean) => void;
+	onRate: (decision: boolean) => void;
 	song: NonNullable<Song>;
 	sx?: SxProps;
 }>;
@@ -16,7 +16,7 @@ type Props = PropsWithChildren<{
 // This component uses style attribute switching by pure js
 // It's not ideal, I wanted to do it through a useState
 // BUT the draggable component just lost finger focus every time the state updated, so.. yeah..
-const RateCard: FC<Props> = ({ onLeaveScreen, song, sx, children }) => {
+const RateCard: FC<Props> = ({ onRate, song, sx, children }) => {
 	const thumb = useRef<HTMLDivElement>(null);
 	const cancel = useRef<HTMLDivElement>(null);
 	const draggable = useRef<HTMLDivElement>(null);
@@ -51,7 +51,7 @@ const RateCard: FC<Props> = ({ onLeaveScreen, song, sx, children }) => {
 			swipeRequirementType="position"
 			swipeThreshold={150}
 			preventSwipe={['up', 'down']}
-			onSwipe={direction => onLeaveScreen(direction === 'right' ? true : false)}
+			onSwipe={direction => onRate(direction === 'right' ? true : false)}
 			onSwipeRequirementFulfilled={indicateSwipe}
 			onSwipeRequirementUnfulfilled={() => indicateSwipe(null)}
 		>

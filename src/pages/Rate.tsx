@@ -19,14 +19,13 @@ const RatePage = () => {
 				<Zoom in={song !== null} timeout={400}>
 					<Box>
 						<RateCard
-							onLeaveScreen={rate}
+							onRate={rate}
 							song={song}
 							sx={{
 								height: 'calc(100svh - 32px - 80px - 16px)'
 							}}
 						>
-							{/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-							<audio controls autoPlay src={song.preview} />
+							<Box component="audio" controls autoPlay src={song.preview} />
 						</RateCard>
 					</Box>
 				</Zoom>

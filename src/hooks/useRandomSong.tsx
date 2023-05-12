@@ -9,7 +9,7 @@ const useRandomSong = (): [Song | null, () => void] => {
 
 	useEffect(() => {
 		const generateValidId = async (): Promise<number> => {
-			const id = Math.floor(Math.random() * 1000000);
+			const id = Math.floor(Math.random() * 10000000);
 
 			if (await hasAlreadyRated(id.toString())) {
 				console.log('--- Provided ID already rated, trying again...');

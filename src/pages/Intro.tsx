@@ -57,7 +57,7 @@ const IntroPage = () => {
 				variant="dots"
 				steps={steps.length}
 				position="top"
-				sx={{ paddingTop: 2, justifyContent: 'center', background: 'none' }}
+				sx={{ paddingTop: 2, justifyContent: 'center' }}
 				activeStep={activeStep}
 				nextButton={undefined}
 				backButton={undefined}

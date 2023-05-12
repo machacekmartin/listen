@@ -82,8 +82,6 @@ const SongPanel: FC<Props> = ({
 							}}
 						>
 							{song.title}
-							{song.title}
-							{song.title}
 						</Typography>
 						<Typography fontSize={13} color="gray">
 							{song.artist.name}
