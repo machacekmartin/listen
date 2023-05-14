@@ -8,15 +8,13 @@ const useRandomSong = (): [Song | null, () => void] => {
 	const [song, setSong] = useState<Song | null>(null);
 
 	useEffect(() => {
-		const generateValidId = async (): Promise<number> => {
-			const id = Math.floor(Math.random() * 10000000);
-
+		const checkIfUserRated = async (id: number): Promise<boolean> => {
 			if (await hasAlreadyRated(id.toString())) {
 				console.log('--- Provided ID already rated, trying again...');
-				return generateValidId();
+				return true;
 			} else {
 				console.log('--- Provided ID is correct');
-				return id;
+				return false;
 			}
 		};
 
@@ -30,8 +28,8 @@ const useRandomSong = (): [Song | null, () => void] => {
 		const fetchRandomSong = async () => {
 			if (song !== null) return;
 
-			const id = await generateValidId();
-			console.log(`--- Found valid id: ${id}`);
+			const id = Math.floor(Math.random() * 10000000);
+
 			const data = await generateSongData(id);
 			console.log(`--- Got API data`);
 
@@ -41,6 +39,12 @@ const useRandomSong = (): [Song | null, () => void] => {
 				return;
 			}
 
+			if (await checkIfUserRated(id)) {
+				fetchRandomSong();
+				return;
+			}
+
+			console.log(`--- Found valid id: ${id}`);
 			console.log('--------------------------');
 			setSong(data);
 		};
