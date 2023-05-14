@@ -11,7 +11,6 @@ import {
 import LoginPage from './pages/Login';
 import RatePage from './pages/Rate';
 import LeaderboardPage from './pages/Leaderboard';
-import ProfilePage from './pages/Profile';
 import IntroPage from './pages/Intro';
 import Navigation from './components/Navigation';
 import AuthGuard from './components/AuthGuard';

@@ -14,7 +14,7 @@ import { SongUrlReference } from '../types';
 type Props = PropsWithChildren<{
 	songId: string;
 	playing: boolean;
-	ratings: {
+	ratings?: {
 		positive: number;
 		negative: number;
 	};
@@ -101,23 +101,24 @@ const SongPanel: FC<Props> = ({
 							<PlayArrow sx={{ fontSize: 35, color: '#373669' }} />
 						</IconButton>
 					)}
-
-					<Box
-						position="absolute"
-						top={-8}
-						right={12}
-						py={0.3}
-						px={1.5}
-						borderRadius="25%"
-						sx={{
-							backgroundColor: 'white',
-							boxShadow: '0px 2px 15px rgba(0, 26, 255, 0.1)'
-						}}
-					>
-						<Typography fontSize={12} fontWeight="900">
-							{ratings.positive} / {ratings.negative}
-						</Typography>
-					</Box>
+					{ratings !== undefined && (
+						<Box
+							position="absolute"
+							top={-8}
+							right={12}
+							py={0.3}
+							px={1.5}
+							borderRadius="25%"
+							sx={{
+								backgroundColor: 'white',
+								boxShadow: '0px 2px 15px rgba(0, 26, 255, 0.1)'
+							}}
+						>
+							<Typography fontSize={12} fontWeight="900">
+								{ratings.positive} / {ratings.negative}
+							</Typography>
+						</Box>
+					)}
 				</>
 			)}
 		</Box>
