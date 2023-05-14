@@ -15,6 +15,8 @@ import ProfilePage from './pages/Profile';
 import IntroPage from './pages/Intro';
 import Navigation from './components/Navigation';
 import AuthGuard from './components/AuthGuard';
+import MySongsPage from './pages/MySongs';
+import LogoutPage from './pages/Logout';
 
 const rootRoute = new RootRoute({
 	component: () => {
@@ -56,10 +58,16 @@ const leaderboardRoute = new Route({
 	component: LeaderboardPage
 });
 
-const profileRoute = new Route({
+const mySongsRoute = new Route({
 	getParentRoute: () => rootRoute,
-	path: '/profile',
-	component: ProfilePage
+	path: '/mysongs',
+	component: MySongsPage
+});
+
+const logoutRoute = new Route({
+	getParentRoute: () => rootRoute,
+	path: '/logout',
+	component: LogoutPage
 });
 
 const notFoundRoute = new Route({
@@ -74,8 +82,9 @@ const notFoundRoute = new Route({
 const routeTree = rootRoute.addChildren([
 	rateRoute,
 	leaderboardRoute,
-	profileRoute,
-	notFoundRoute
+	notFoundRoute,
+	logoutRoute,
+	mySongsRoute
 ]);
 
 const router = new Router({ routeTree });

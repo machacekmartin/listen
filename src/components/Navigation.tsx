@@ -1,15 +1,16 @@
 import {
-	ElectricMeter,
-	ElectricMeterOutlined,
 	EmojiEvents,
 	EmojiEventsOutlined,
+	LibraryMusic,
+	LibraryMusicOutlined,
+	Logout,
+	LogoutOutlined,
 	MusicNote,
-	MusicNoteOutlined,
-	Person2,
-	PersonOutlined
+	MusicNoteOutlined
 } from '@mui/icons-material';
 import { BottomNavigation, BottomNavigationAction } from '@mui/material';
 import { Route, useRouter } from '@tanstack/react-router';
+import { signOut } from 'firebase/auth';
 import { FC } from 'react';
 
 type Props = {
@@ -19,16 +20,12 @@ type Props = {
 const Navigation: FC<Props> = ({ onSelect }) => {
 	const router = useRouter();
 
-	const items = ['rate', 'leaderboard', 'profile'].map(routePath => ({
+	const items = ['rate', 'leaderboard', 'mysongs', 'logout'].map(routePath => ({
 		route: (router.routeTree.children as Array<Route>).find(
 			({ path }) => path === routePath
 		),
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		icon: {
-			intro: {
-				regular: ElectricMeterOutlined,
-				active: ElectricMeter
-			},
 			rate: {
 				regular: MusicNoteOutlined,
 				active: MusicNote
@@ -37,9 +34,13 @@ const Navigation: FC<Props> = ({ onSelect }) => {
 				regular: EmojiEventsOutlined,
 				active: EmojiEvents
 			},
-			profile: {
-				regular: PersonOutlined,
-				active: Person2
+			mysongs: {
+				regular: LibraryMusicOutlined,
+				active: LibraryMusic
+			},
+			logout: {
+				regular: LogoutOutlined,
+				active: Logout
 			}
 		}[routePath]!
 	}));
