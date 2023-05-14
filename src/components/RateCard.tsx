@@ -1,22 +1,22 @@
 import { Cancel, ThumbUp } from '@mui/icons-material';
 import { Box, SxProps, Typography } from '@mui/material';
-import { FC, PropsWithChildren, useRef } from 'react';
+import { FC, useRef } from 'react';
 import TinderCard from 'react-tinder-card';
 
 import { Song } from '../types';
 
 import SwipeIndicator from './SwipeIndicator';
 
-type Props = PropsWithChildren<{
+type Props = {
 	onRate: (decision: boolean) => void;
 	song: NonNullable<Song>;
 	sx?: SxProps;
-}>;
+};
 
 // This component uses style attribute switching by pure js
 // It's not ideal, I wanted to do it through a useState
 // BUT the draggable component just lost finger focus every time the state updated, so.. yeah..
-const RateCard: FC<Props> = ({ onRate, song, sx, children }) => {
+const RateCard: FC<Props> = ({ onRate, song, sx }) => {
 	const thumb = useRef<HTMLDivElement>(null);
 	const cancel = useRef<HTMLDivElement>(null);
 	const draggable = useRef<HTMLDivElement>(null);
@@ -107,13 +107,14 @@ const RateCard: FC<Props> = ({ onRate, song, sx, children }) => {
 							position: 'relative',
 							bottom: 0,
 							left: 0,
+							paddingTop: 1,
 							width: '100%',
 							display: 'flex',
 							alignItems: 'center',
 							justifyContent: 'center'
 						}}
 					>
-						{children}
+						<Box component="audio" controls autoPlay src={song.preview} />
 					</Box>
 				</Box>
 

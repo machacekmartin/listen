@@ -24,9 +24,7 @@ const RatePage = () => {
 							sx={{
 								height: 'calc(100svh - 32px - 80px - 16px)'
 							}}
-						>
-							<Box component="audio" controls autoPlay src={song.preview} />
-						</RateCard>
+						/>
 					</Box>
 				</Zoom>
 			)) || (
