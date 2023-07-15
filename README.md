@@ -4,7 +4,7 @@ Song rating app with _"Tinder-like swipes"_ and pseudo-random song picking. <sub
 
 A school project built with React, Mui, Typescript, Firebase and [Deezer API](https://developers.deezer.com/api).
 
-<img src="https://github.com/machacekmartin/listen/assets/33912290/d4c971bc-cbbf-4bf0-ac30-593aaa2cffb5" width="400">
+<img src="https://github.com/machacekmartin/listen/assets/33912290/8c191360-d487-4a6b-be9e-eddd8976fc70" width="400">
 
 > Live demo available [here](https://listen-pearl.vercel.app/), current firebase plan is on free-tier, rate-limiting problems might (and will) occur.
 
