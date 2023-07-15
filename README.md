@@ -2,7 +2,8 @@
 
 Song rating web app with _"Tinder-like swipes"_ and pseudo-random song picking. <sub><sup>(working prototype, first time using react)</sub></sup>
 
-A quick school project built with React, Mui, Typescript, Firebase and [Deezer API](https://developers.deezer.com/api). Targeted for mobile-resolutions only.
+A quick school project built with React, Mui, Typescript, Firebase and [Deezer API](https://developers.deezer.com/api).
+Swipe cards are implemented using [react-tinder-card](https://github.com/3DJakob/react-tinder-card). Built for mobile-resolutions only.
 
 <img src="https://github.com/machacekmartin/listen/assets/33912290/8c191360-d487-4a6b-be9e-eddd8976fc70" width="400">
 
