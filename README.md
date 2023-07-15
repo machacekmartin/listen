@@ -1,6 +1,6 @@
 # ♬ Listen 
 
-Song rating app with _"Tinder-like swipes"_ and pseudo-random song picking. <sub><sup>(working prototype, first time using react)</sub></sup>
+Song rating web app with _"Tinder-like swipes"_ and pseudo-random song picking. <sub><sup>(working prototype, first time using react)</sub></sup>
 
 A quick school project built with React, Mui, Typescript, Firebase and [Deezer API](https://developers.deezer.com/api). Targeted for mobile-resolutions only.
 
