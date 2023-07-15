@@ -6,7 +6,7 @@ A school project built with React, Mui, Typescript, Firebase and [Deezer API](ht
 
 <img src="https://github.com/machacekmartin/listen/assets/33912290/d4c971bc-cbbf-4bf0-ac30-593aaa2cffb5" width="400">
 
-> Live demo available [here](https://listen-pearl.vercel.app/), current firebase plan is on free-tier, rate-limiting problems might occur.
+> Live demo available [here](https://listen-pearl.vercel.app/), current firebase plan is on free-tier, rate-limiting problems might (and will) occur.
 
 #### In case you want to try it out locally
 ```shell
