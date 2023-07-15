@@ -6,7 +6,7 @@ A quick school project built with React, Mui, Typescript, Firebase and [Deezer A
 
 <img src="https://github.com/machacekmartin/listen/assets/33912290/8c191360-d487-4a6b-be9e-eddd8976fc70" width="400">
 
-> Live demo available [here](https://listen-pearl.vercel.app/), current firebase plan is on free-tier, rate limiting problems might (and will) occur.
+> Live demo available [here](https://listen-pearl.vercel.app/), current firebase plan is on free-tier, rate limiting problems may (and will) occur.
 
 #### In case you want to try it out locally
 ```shell
